@@ -44,6 +44,8 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'pry-rails'
 
+gem 'github_api'
+
 group :production do
   gem 'pg'
   gem 'unicorn'

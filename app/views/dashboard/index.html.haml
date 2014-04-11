@@ -1,0 +1,8 @@
+%h1 Dashboard#index
+
+= form_tag dashboard_path('pull_requests'), method: :get do
+  = select_tag "org_id", options_from_collection_for_select(@organizations, "id", "name")
+  = text_field_tag "ext_org"
+  = text_field_tag "ext_repo"
+  = submit_tag "Pull Requests"
+
