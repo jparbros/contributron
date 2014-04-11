@@ -1,5 +1,8 @@
 @Contributron ||= {}
 
+Handlebars.registerHelper "pr_link", ->
+  new Handlebars.SafeString("#{@user.login} - <a href='" + @html_url + "'>"+ @title + "</a>")
+
 
 class Contributron.pull_request
 
@@ -14,6 +17,10 @@ class Contributron.pull_request
     ).done (data) ->
       $('.loading').remove()
       console.log data
+      $("#closed").html HandlebarsTemplates.pull_requests items: data
       return
+
+
+
 
 

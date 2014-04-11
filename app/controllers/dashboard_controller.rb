@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
-  #respond_to :html, :jso
 
   before_filter :authenticate!
 

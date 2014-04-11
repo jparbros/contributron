@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :authenticate!
 
   helper_method :current_user
 
@@ -18,8 +17,6 @@ class ApplicationController < ActionController::Base
     unless current_user
       flash[:notice] = 'You have to be logged in'
       redirect_to root_url
-    else
-      redirect_to dashboard_index_path, alert: "You have already logged in"
     end
   end
 
