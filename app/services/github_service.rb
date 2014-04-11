@@ -14,7 +14,7 @@ class GithubService
 
     organizations.each_page do |page|
       page.each do |org|
-        members = github.orgs.members.list(org['login']).map(&:login)
+        members = github.orgs.members.list(org['login'], per_page: '100').map(&:login)
         user_org = user.organizations.where(name: org['login'], avatar: org['avatar']).first_or_initialize
         user_org.update_attribute(:members, members) if user_org.new_record?
         orgs << user_org
