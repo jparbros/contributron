@@ -38,8 +38,13 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'haml-rails'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'pry-rails'
+
+group :production do
+  gem 'pg'
+  gem 'unicorn'
+end
