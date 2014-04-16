@@ -65,15 +65,15 @@ class Organization < ActiveRecord::Base
   private
 
     def get_pull_requests(repo, org, state, token)
-      GithubService.new(token, current_user).get_pull_requests(repo, org, state)
+      GithubService.new(token).get_pull_requests(repo, org, state)
     end
 
     def get_repos(user, token)
-      GithubService.new(token, current_user).get_repos(user)
+      GithubService.new(token).get_repos(user)
     end
 
     def get_complete_repo(user, repo, token)
-      GithubService.new(token, current_user).get_complete_repo(user, repo)
+      GithubService.new(token).get_complete_repo(user, repo)
     end
 
 end

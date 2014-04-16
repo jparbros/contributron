@@ -35,10 +35,10 @@ class DashboardController < ApplicationController
   private
 
     def get_organization
-      GithubService.new(session[:user_token], current_user).get_organizations
+      GithubService.new(session[:user_token]).get_organizations
     end
 
     def get_members(org)
-      GithubService.new(session[:user_token], current_user).get_members(org)
+      GithubService.new(session[:user_token]).get_members(org)
     end
 end

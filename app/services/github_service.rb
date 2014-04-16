@@ -1,8 +1,7 @@
 class GithubService
-  attr_accessor :github, :token, :user
+  attr_accessor :github, :token
 
-  def initialize(token, user)
-    @user = user
+  def initialize(token)
     @token = token
     @github = Github.new oauth_token: token
   end
