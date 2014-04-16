@@ -1,0 +1,19 @@
+%h1 Memmber #{@member.name}
+
+%p
+  Forks: #{@member.repositories.size}
+
+#h3 Closed Pull Requests
+%ul
+  - @member.pull_requests.closed.each do |pull|
+    %li
+      #{pull.repository.try(:name)} -
+      = link_to pull.title, pull.url
+
+
+#h3 Open Pull Requests
+%ul
+  - @member.pull_requests.open.each do |pull|
+    %li
+      #{pull.repository.try(:name)} -
+      = link_to pull.title, pull.url

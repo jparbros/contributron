@@ -35,15 +35,16 @@ class Organization < ActiveRecord::Base
 
             pull_requests = pull_requests + closed_pull_requests.select{|pull| pull['user'] && pull['user']['login'] == member.name }
 
+
             Rails.logger.info "#{member.name} fork: #{complete_repo['parent']['full_name']} - PRs: #{pull_requests.size}"
 
-            pull_requests.each do |pull|
-              member.pull_requests.where(url: pull['html_url'], title: pull['title'], state: pull['state']).first_or_create
-            end
-
             unless pull_requests.empty?
-              member.repositories.where(name: complete_repo['parent']['full_name'],
+              repository = member.repositories.where(name: complete_repo['parent']['full_name'],
                                         homepage: complete_repo['parent']['html_url']).first_or_create
+
+              pull_requests.each do |pull|
+                member.pull_requests.where(url: pull['html_url'], title: pull['title'], state: pull['state'], repository_id: repository.id).first_or_create
+              end
             end
           end
         end

@@ -1,7 +1,10 @@
 %h1 Organization: #{@organization.name}
 
 %ul
-  - @organization.members.each do |member|
-    %li= link_to member.name, '#'
+  - @organization.members.ranked.each do |member|
+    %li= link_to "#{member.name}(#{member.closed_pull_requests_count})", member_path(member)
+
+  - (@organization.members - @organization.members.ranked).each do |member|
+    %li= link_to "#{member.name}(#{member.closed_pull_requests_count})", member_path(member)
 
 
