@@ -1,22 +1,7 @@
-%h1 Pull Requests to '#{@repo}' repo of '#{@org}' from '#{@organization.name}'
+%h1 Organization: #{@organization.name}
 
-
-%h2 Open PRs:
 %ul
-  - @open_pull_requests.each do |pr|
-    %li
-      #{pr.user.login} -
-      = link_to pr.title, pr.html_url
-
-%h2 Closed PRs:
-%p#closed
-  %i.loading Loading...
-
-
-:javascript
-  $(function() {
-    var pull_request = new Contributron.pull_request();
-    pull_request.get_closed("#{@repo}", "#{@org}", "#{@organization.id}");
-  });
+  - @organization.members.each do |member|
+    %li= link_to member.name, '#'
 
 

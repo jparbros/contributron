@@ -41,14 +41,15 @@ end
 
 gem 'haml-rails'
 gem 'handlebars_assets'
-
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'pry-rails'
 gem 'pry-nav'
-
 gem 'github_api'
-
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'state_machine'
 group :development do
   gem 'sqlite3'
 end

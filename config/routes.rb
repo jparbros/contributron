@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Contributron::Application.routes.draw do
 
   get 'auth/:provider/callback' => 'sessions#create'
@@ -8,4 +10,6 @@ Contributron::Application.routes.draw do
   get '/signout' => 'sessions#destroy', :as => :signout
 
   root "sessions#new"
+
+  mount Sidekiq::Web, at: "/sidekiq"
 end
