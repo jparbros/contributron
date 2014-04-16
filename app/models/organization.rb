@@ -26,9 +26,7 @@ class Organization < ActiveRecord::Base
         reposotories.each do |repo|
           if repo['fork'] == true
             repository = member.repositories.where(name: repo['name'],
-                                               homepage: repo['html_url'],
-                                            parent_name: complete_repo['parent']['full_name'],
-                                             parent_url: complete_repo['parent']['html_url']).first_or_create
+                                               homepage: repo['html_url']).first_or_create
 
             PullRequestsWorker.perform_async(repository.id, token)
 

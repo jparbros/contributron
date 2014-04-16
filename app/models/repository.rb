@@ -27,6 +27,7 @@ class Repository < ActiveRecord::Base
     self.process!
     begin
       complete_repo = get_complete_repo self.member.name, self.name, token
+      sefl.update_attributes(parent_name: complete_repo['parent']['full_name'], parent_url: complete_repo['parent']['html_url'])
 
       pull_requests = []
       open_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'open', token )
