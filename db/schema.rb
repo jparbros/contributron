@@ -11,13 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411174344) do
+ActiveRecord::Schema.define(version: 20140415153147) do
+
+  create_table "members", force: true do |t|
+    t.string   "name"
+    t.string   "profile"
+    t.string   "avatar"
+    t.integer  "pull_requests_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "organization_id"
+  end
 
   create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "avatar"
-    t.text     "members",    limit: 255
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pull_requests", force: true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.string   "state"
+    t.integer  "repository_id"
+    t.integer  "member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "repositories", force: true do |t|
+    t.string   "name"
+    t.string   "homepage"
+    t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

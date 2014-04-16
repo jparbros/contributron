@@ -45,6 +45,7 @@ gem 'handlebars_assets'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'pry-rails'
+gem 'pry-nav'
 
 gem 'github_api'
 

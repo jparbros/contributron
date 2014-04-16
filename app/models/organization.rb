@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
-  serialize :members, Array
 
+  has_many :members
   belongs_to :user
 
 
