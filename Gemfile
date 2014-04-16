@@ -50,6 +50,11 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'state_machine'
+
+gem 'bootstrap-sass', '~> 3.1.1'
+
+gem 'newrelic_rpm'
+
 group :development do
   gem 'sqlite3'
 end
