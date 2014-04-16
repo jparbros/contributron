@@ -23,8 +23,7 @@ class DashboardController < ApplicationController
     if current_user.organizations.where("state like 'done' OR state like 'processing'").size > 0
       flash[:alert] = "You can only process one organization"
     elsif @organization.state == 'created'
-      @organization.start_bulk
-      ProcessWorker.perform_async params[:org_id]
+      ProcessWorker.perform_async params[:org_id], session[:user_token]
       message = "Give us some time we're processing your organization"
     end
 

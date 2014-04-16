@@ -17,21 +17,21 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  def start_bulk
+  def start_bulk(token)
     self.process!
     begin
       self.members.each do |member|
-        reposotories = get_repos member.name
+        reposotories = get_repos member.name, token
         reposotories.each do |repo|
           if repo['fork'] == true
 
-            complete_repo = get_complete_repo member.name, repo['name']
+            complete_repo = get_complete_repo member.name, repo['name'], token
 
             pull_requests = []
-            open_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'open' )
+            open_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'open', token )
             pull_requests = pull_requests + open_pull_requests.select{|pull| pull['user'] && pull['user']['login'] == member.name }
 
-            closed_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'closed' )
+            closed_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'closed', token )
 
             pull_requests = pull_requests + closed_pull_requests.select{|pull| pull['user'] && pull['user']['login'] == member.name }
 
@@ -64,16 +64,16 @@ class Organization < ActiveRecord::Base
 
   private
 
-    def get_pull_requests(repo, org, state)
-      GithubService.new(session[:user_token], current_user).get_pull_requests(repo, org, state)
+    def get_pull_requests(repo, org, state, token)
+      GithubService.new(token, current_user).get_pull_requests(repo, org, state)
     end
 
-    def get_repos(user)
-      GithubService.new(session[:user_token], current_user).get_repos(user)
+    def get_repos(user, token)
+      GithubService.new(token, current_user).get_repos(user)
     end
 
-    def get_complete_repo(user, repo)
-      GithubService.new(session[:user_token], current_user).get_complete_repo(user, repo)
+    def get_complete_repo(user, repo, token)
+      GithubService.new(token, current_user).get_complete_repo(user, repo)
     end
 
 end
