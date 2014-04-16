@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140416033803) do
+ActiveRecord::Schema.define(version: 20140416144332) do
 
   create_table "members", force: true do |t|
     t.string   "name"
@@ -48,6 +48,9 @@ ActiveRecord::Schema.define(version: 20140416033803) do
     t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
+    t.string   "parent_name"
+    t.string   "parent_url"
   end
 
   create_table "users", force: true do |t|
