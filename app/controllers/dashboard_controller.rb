@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
   def show
     @organization = Organization.find params[:org_id]
 
-    if current_user.organizations.where("state == 'done' OR state == 'processing'").size > 0
+    if current_user.organizations.where("state like 'done' OR state like 'processing'").size > 0
       flash[:alert] = "You can only process one organization"
     elsif @organization.state == 'created'
       @organization.start_bulk
