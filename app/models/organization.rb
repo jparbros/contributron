@@ -55,6 +55,7 @@ class Organization < ActiveRecord::Base
       message << e.message
       message << e.backtrace.join("\n")
       errors[:error] = message
+      Rails.logger.info message
     end
 
     self.finish! if errors.empty?
