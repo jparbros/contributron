@@ -6,8 +6,8 @@ class Repository < ActiveRecord::Base
 
 
   scope :created, -> { where(state: 'created') }
-  scope :errored, -> { where(state: 'created') }
-  scope :done, -> { where(state: 'created') }
+  scope :errored, -> { where(state: 'errored') }
+  scope :done, -> { where(state: 'done') }
 
   state_machine :state, :initial => :created do
     event :process do
@@ -27,7 +27,7 @@ class Repository < ActiveRecord::Base
     self.process!
     begin
       complete_repo = get_complete_repo self.member.name, self.name, token
-      sefl.update_attributes(parent_name: complete_repo['parent']['full_name'], parent_url: complete_repo['parent']['html_url'])
+      self.update_attributes(parent_name: complete_repo['parent']['full_name'], parent_url: complete_repo['parent']['html_url'])
 
       pull_requests = []
       open_pull_requests = get_pull_requests(complete_repo['parent']['name'], complete_repo['parent']['owner']['login'], 'open', token )
@@ -54,7 +54,7 @@ class Repository < ActiveRecord::Base
       Rails.logger.info message
     end
     self.finish! if errors.empty?
-    if self.member.organization.repositories.created.size == 0
+    if self.member.organization.repositories.created.size == 0 && self.member.organization.repositories.errored.size == 0
       NotificationMailer.notify_user(self.member.organization).deliver
     end
   end
